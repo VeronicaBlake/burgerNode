@@ -10,11 +10,12 @@ import BaseController from '../utils/BaseController'
 // - req, res, next
 // - kick to service
 
-export class ValuesController extends BaseController {
+export class BurgersController extends BaseController {
   constructor() {
     super('api/burgers')
     this.router
-      .get('/:id', this.getAll)
+      .get('', this.getAll)
+      .get('/:id', this.getById)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
@@ -49,6 +50,7 @@ export class ValuesController extends BaseController {
 
   edit(req, res, next) {
     try {
+      req.body.id = req.params.id
       const burger = burgersService.edit(req.body)
       res.send(burger)
     } catch (error) {
